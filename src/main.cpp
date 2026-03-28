@@ -10,7 +10,7 @@ ConfigManager cfg("ExampleMod");
 __attribute__((constructor))
 void onLoad() {
     LOGI("Loading...");
-    LOGI("Package: %s", getAppPackage().c_str());
+//    LOGI("Package: %s", getAppPackage().c_str());
 
     auto config = cfg.open("config.json");
 
