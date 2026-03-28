@@ -8,8 +8,8 @@ ConfigManager cfg("ExampleMod");
 auto &logger = pl::log::getOrCreate("ExampleMod");
 
 //this is constructor func (__attribute__((constructor)));
-//__attribute__((constructor))
-LoadAPI void onLoad() {
+__attribute__((constructor))
+ void onLoad() {
     logger.info("Loading...");
     auto config = cfg.open("config.json");
     config.write("player.name", std::string("Zed"));
