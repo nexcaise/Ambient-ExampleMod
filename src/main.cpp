@@ -11,7 +11,7 @@ auto &logger = pl::log::getOrCreate("ExampleMod");
 //__attribute__((constructor))
 LoadAPI void onLoad() {
     logger.info("Loading...");
-    auto doc = cfg.open("config.json");
+    auto config = cfg.open("config.json");
     config.write("player.name", std::string("Zed"));
     config.write("player.level", 10);
     int level = config.read<int>("player.level", 0);
