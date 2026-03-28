@@ -1,5 +1,5 @@
-set_project("ExampleMod")
-set_version("1.0.0")
+set_project("ExampleMod") -- mod name
+set_version("1.0.0") -- mod version
 
 set_languages("cxx23")
 
@@ -7,19 +7,20 @@ add_rules("mode.release")
 
 add_repositories("xmake-repo https://github.com/xmake-io/xmake-repo.git")
 
-add_requires("nlohmann_json v3.11.3")
+add_requires("nlohmann_json v3.11.3") -- json api for config thats use preloader api
 
-target("ExampleMod")
+target("ExampleMod") -- mod name
     set_kind("shared")
     add_packages("nlohmann_json")
     add_linkdirs("libs/arm64-v8a")
     add_linkdirs("niseAPI/libs/arm64-v8a")
-    add_links("nise", "log")
+    add_links("nise", "log") -- add links, to included the nise api into the mod
 
-    add_files("src/*.cpp")
+    add_files("src/*.cpp") -- add all cpp files in src folder, for compile the mod
 
-    add_includedirs("include", "niseAPI/include", {public = true})
+    -- include dirs, for #include {file} works
 
-    add_cxflags("-O2", "-fvisibility=hidden", "-ffunction-sections", "-fdata-sections", "-w")
-    add_cflags("-O2", "-fvisibility=hidden", "-ffunction-sections", "-fdata-sections", "-w")
-    add_ldflags("-Wl,--gc-sections,--strip-all", "-s")
+    add_includedirs("include", {public = true}) -- preloader api
+    add_includedirs("include/pl", {public = true}) -- preloader api
+    add_includedirs("include/gamepwnage", {public = true}) -- gamepwnage api
+    add_includedirs("niseAPI/include", {public = true}) -- nise api
