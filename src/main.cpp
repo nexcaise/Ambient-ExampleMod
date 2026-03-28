@@ -7,8 +7,8 @@
 __android_log_print(ANDROID_LOG_INFO, LOG_TAG, fmt, ##__VA_ARGS__)
 
 //this is constructor func (__attribute__((constructor)));
-__attribute__((constructor))
-void onLoad() {
+//__attribute__((constructor))
+LoadAPI void onLoad() {
     LOGI("Loading...");
     LOGI("Loading Done");
 }
