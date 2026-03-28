@@ -1,22 +1,29 @@
 #include <Macro.h>
 #include <configAPI.h>
 #include <android/log.h>
-#include <pl/Logger.h>
+#include <main.h>
+
+#define LOGI(...) __android_log_print(ANDROID_LOG_INFO, "ExampleMod", __VA_ARGS__)
 
 ConfigManager cfg("ExampleMod");
 
-auto &logger = pl::log::getOrCreate("ExampleMod");
-
-//this is constructor func (__attribute__((constructor)));
 __attribute__((constructor))
- void onLoad() {
-    logger.info("Loading...");
+void onLoad() {
+    LOGI("Loading...");
+    LOGI("Package: %s", getAppPackage());
+
     auto config = cfg.open("config.json");
+
     config.write("player.name", std::string("Zed"));
     config.write("player.level", 10);
+
     int level = config.read<int>("player.level", 0);
     std::string name = config.read<std::string>("player.name", "unknown");
-    logger.info("Player Level: %s", level);
-    logger.info("Player Name: %s", name);
-    logger.info("Loading Done");
+
+    LOGI("Player Level: %d", level);
+    LOGI("Player Name: %s", name.c_str());
+
+    config.save();
+
+    LOGI("Loading Done");
 }
