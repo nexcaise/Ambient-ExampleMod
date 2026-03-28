@@ -1,0 +1,70 @@
+name: Build
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Setup Android NDK
+        uses: nttld/setup-ndk@v1
+        with:
+          ndk-version: r27d
+
+      - name: Setup xmake
+        uses: xmake-io/github-action-setup-xmake@v1
+        with:
+          xmake-version: latest
+
+      - name: Install jq & unzip
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq unzip
+
+      - name: Get latest version
+        id: get_version
+        run: |
+          VERSION=$(curl -s "https://www.nexcaise.my.id/api/git/releases?owner=alvinqid&repo=Ambient-LeviModLoader" | jq -r '.[0].tag_name')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Prepare directories
+        run: |
+          mkdir -p libs/arm64-v8a
+          mkdir -p include
+
+      - name: Download libpreloader.so
+        run: |
+          curl -L -o libs/arm64-v8a/libpreloader.so \
+          "https://www.nexcaise.my.id/api/git/releases/download?owner=alvinqid&repo=Ambient-LeviModLoader&tag=${{ steps.get_version.outputs.version }}&asset=libpreloader.so"
+
+      - name: Download include.zip
+        run: |
+          curl -L -o include.zip \
+          "https://www.nexcaise.my.id/api/git/releases/download?owner=alvinqid&repo=Ambient-LeviModLoader&tag=${{ steps.get_version.outputs.version }}&asset=include.zip"
+
+      - name: Extract include.zip
+        run: |
+          unzip -o include.zip -d include
+          rm include.zip
+
+      - name: Clone NiseAPI
+        run: |
+          git clone https://github.com/Lodingglue/nise-api.git niseAPI
+
+      - name: Configure and Build
+        run: |
+          xmake f -p android -a arm64-v8a --ndk=$ANDROID_NDK_HOME -m release -y
+          xmake -y
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: libExampleMod
+          path: build/android/arm64-v8a/release
