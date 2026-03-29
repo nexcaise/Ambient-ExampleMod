@@ -10,7 +10,6 @@ Config cfg("ExampleMod");
 __attribute__((constructor))
 void onLoad() {
     LOGI("Loading...");
-//    LOGI("Package: %s", getAppPackage().c_str());
 
     cfg.load();
 
