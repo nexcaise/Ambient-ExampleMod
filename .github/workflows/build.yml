@@ -13,10 +13,17 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Setup Android NDK
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Set up Android NDK
+        id: setup-ndk
         uses: nttld/setup-ndk@v1
         with:
-          ndk-version: r27d
+          ndk-version: r27b
 
       - name: Setup xmake
         uses: xmake-io/github-action-setup-xmake@v1
