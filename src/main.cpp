@@ -5,14 +5,14 @@
 
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, "ExampleMod", __VA_ARGS__)
 
-ConfigManager cfg("ExampleMod");
+//ConfigManager cfg("ExampleMod");
 
 __attribute__((constructor))
 void onLoad() {
     LOGI("Loading...");
 //    LOGI("Package: %s", getAppPackage().c_str());
 
-    auto config = cfg.open("config.json");
+/*    auto config = cfg.open("config.json");
 
     config.write("player.name", std::string("Zed"));
     config.write("player.level", 10);
@@ -24,6 +24,6 @@ void onLoad() {
     LOGI("Player Name: %s", name.c_str());
 
     config.save();
-
+*/
     LOGI("Loading Done");
 }
