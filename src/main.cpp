@@ -5,7 +5,7 @@
 
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, "ExampleMod", __VA_ARGS__)
 
-ConfigManager cfg("ExampleMod");
+Config cfg("ExampleMod");
 
 __attribute__((constructor))
 void onLoad() {
