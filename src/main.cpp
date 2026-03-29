@@ -11,8 +11,6 @@ __attribute__((constructor))
 void onLoad() {
     LOGI("Loading...");
 
-    cfg.load();
-
     auto config = cfg.open("config.json");
 
     config.set("player.name", std::string("Zed"));
