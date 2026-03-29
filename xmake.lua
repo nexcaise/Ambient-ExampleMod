@@ -14,7 +14,7 @@ target("ExampleMod") -- mod name
     add_packages("nlohmann_json")
     add_linkdirs("libs/arm64-v8a")
     add_linkdirs("niseAPI/libs/arm64-v8a")
-    add_links("nise", "log") -- add links, to included the nise api into the mod
+    add_links("nise", "log", "preloader") -- add links, to included the nise api into the mod
     add_defines("PRELOADER_EXPORT", "MINIAPI_MACRO", "UNICODE")
     add_files("src/*.cpp") -- add all cpp files in src folder, for compile the mod
 
