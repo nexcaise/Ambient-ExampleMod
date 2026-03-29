@@ -23,7 +23,6 @@ void onLoad() {
 
     LOGI("Player Level: %d", level);
     LOGI("Player Name: %s", name.c_str());
-
     config.save();
 
     LOGI("Loading Done");
