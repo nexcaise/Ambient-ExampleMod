@@ -7,11 +7,11 @@ add_rules("mode.release")
 
 add_repositories("xmake-repo https://github.com/xmake-io/xmake-repo.git")
 
---add_requires("nlohmann_json v3.11.3") -- json api for config thats use preloader api
+add_requires("nlohmann_json v3.11.3") -- json api for config thats use preloader api
 
 target("ExampleMod") -- mod name
     set_kind("shared")
-    --add_packages("nlohmann_json")
+    add_packages("nlohmann_json")
     add_linkdirs("libs/arm64-v8a")
     add_linkdirs("niseAPI/libs/arm64-v8a")
     add_links("nise", "log") -- add links, to included the nise api into the mod
