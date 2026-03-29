@@ -10,7 +10,7 @@ void onLoad() {
     Config cfg("ExampleMod");
     LOGI("Loading...");
 
-    auto config = cfg.open("config.json");
+    auto config = cfg.open("config.ini");
 
     config.set("player.name", std::string("Zed"));
     config.set("player.level", 10);
