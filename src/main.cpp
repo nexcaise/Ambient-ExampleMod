@@ -5,13 +5,12 @@
 
 #define LOGI(...) __android_log_print(ANDROID_LOG_INFO, "ExampleMod", __VA_ARGS__)
 
-Config cfg("ExampleMod");
-
 __attribute__((constructor))
 void onLoad() {
+    Config cfg("ExampleMod");
     LOGI("Loading...");
 
-    auto config = cfg.open("config.json");
+    auto config = cfg.open("config.ini");
 
     config.set("player.name", std::string("Zed"));
     config.set("player.level", 10);
